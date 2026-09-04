@@ -1,0 +1,965 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Dazumbanho — Banho e tosa com muito carinho</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Nunito:ital,wght@0,400;0,600;0,700;0,800;1,600&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --bg:#EAF7FF;
+    --foam:#F6FBFF;
+    --ink:#103A5C;
+    --ink-soft:#4A6B85;
+    --blue:#1E8FD5;
+    --blue-deep:#0E6BB0;
+    --blue-dark:#0B4E80;
+    --orange:#FF9A47;
+    --orange-deep:#F27E27;
+    --orange-soft:#FFD9B0;
+    --mint:#8FE0D3;
+    --pink:#FFB4C6;
+    --white:#ffffff;
+    --shadow-blue: 0 18px 40px -20px rgba(14,107,176,.55);
+    --shadow-orange: 0 16px 34px -18px rgba(242,126,39,.6);
+    --r-lg:32px; --r-md:22px; --r-sm:14px;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    font-family:'Nunito',system-ui,sans-serif;
+    color:var(--ink);
+    background:var(--bg);
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+    line-height:1.6;
+  }
+  h1,h2,h3,.brand{font-family:'Baloo 2',cursive;line-height:1.05;margin:0;}
+  a{color:inherit;text-decoration:none;}
+  img,svg{display:block;max-width:100%;}
+  button{font-family:inherit;cursor:pointer;border:none;}
+  section{position:relative;}
+  .wrap{width:min(1160px,92vw);margin:0 auto;}
+
+  :focus-visible{outline:3px solid var(--orange-deep);outline-offset:3px;border-radius:6px;}
+
+  /* ---------- buttons ---------- */
+  .btn{
+    display:inline-flex;align-items:center;gap:.55em;
+    font-weight:800;font-size:1.02rem;
+    padding:.85em 1.5em;border-radius:100px;
+    transition:transform .18s ease, box-shadow .18s ease, background .2s;
+    white-space:nowrap;
+  }
+  .btn-primary{background:var(--orange);color:#5a2c00;box-shadow:var(--shadow-orange);}
+  .btn-primary:hover{transform:translateY(-3px) rotate(-1deg);background:var(--orange-deep);color:#fff;}
+  .btn-ghost{background:#fff;color:var(--blue-deep);box-shadow:0 10px 26px -16px rgba(14,107,176,.6);}
+  .btn-ghost:hover{transform:translateY(-3px);color:var(--blue-dark);}
+  .btn-blue{background:var(--blue);color:#fff;box-shadow:var(--shadow-blue);}
+  .btn-blue:hover{transform:translateY(-3px);background:var(--blue-deep);}
+
+  /* ---------- nav ---------- */
+  header.nav{position:sticky;top:0;z-index:60;
+    backdrop-filter:blur(10px);
+    background:rgba(234,247,255,.82);
+    border-bottom:2px solid rgba(30,143,213,.12);
+  }
+  .nav-inner{display:flex;align-items:center;justify-content:space-between;padding:.7rem 0;}
+  .brand{display:flex;align-items:center;gap:.5rem;font-size:1.55rem;font-weight:800;color:var(--blue-deep);}
+  .brand .logo-mark{width:42px;height:42px;flex:0 0 auto;}
+  .brand b{color:var(--orange-deep);}
+  .nav-links{display:flex;align-items:center;gap:1.6rem;font-weight:700;color:var(--ink-soft);}
+  .nav-links a{position:relative;padding:.2rem 0;transition:color .2s;}
+  .nav-links a:hover{color:var(--blue-deep);}
+  .nav-links a::after{content:"";position:absolute;left:0;bottom:-3px;height:3px;width:0;background:var(--orange);border-radius:3px;transition:width .25s;}
+  .nav-links a:hover::after{width:100%;}
+  .nav-cta{display:flex;align-items:center;gap:.8rem;}
+  .burger{display:none;background:#fff;width:46px;height:46px;border-radius:14px;box-shadow:0 8px 20px -12px rgba(14,107,176,.6);align-items:center;justify-content:center;}
+  .burger span{display:block;width:20px;height:2.6px;background:var(--blue-deep);border-radius:3px;position:relative;}
+  .burger span::before,.burger span::after{content:"";position:absolute;left:0;width:20px;height:2.6px;background:var(--blue-deep);border-radius:3px;}
+  .burger span::before{top:-6px;} .burger span::after{top:6px;}
+
+  /* ---------- hero ---------- */
+  .hero{padding:clamp(2rem,6vw,4.5rem) 0 clamp(5rem,10vw,7rem);}
+  .hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:2rem;align-items:center;}
+  .eyebrow{display:inline-flex;align-items:center;gap:.5rem;background:#fff;color:var(--blue-deep);
+    font-weight:800;padding:.45em 1em;border-radius:100px;font-size:.95rem;
+    box-shadow:0 10px 24px -16px rgba(14,107,176,.7);}
+  .hero h1{font-size:clamp(2.6rem,6vw,4.5rem);color:var(--ink);margin:1rem 0 .3rem;}
+  .hero h1 .splash{color:var(--blue);position:relative;white-space:nowrap;}
+  .hero h1 .splash::after{content:"";position:absolute;left:-2%;right:-2%;bottom:.08em;height:.28em;background:var(--orange-soft);border-radius:100px;z-index:-1;transform:rotate(-1.2deg);}
+  .hero p.lead{font-size:1.22rem;color:var(--ink-soft);font-weight:600;max-width:34ch;margin:.6rem 0 1.7rem;}
+  .hero-cta{display:flex;gap:.9rem;flex-wrap:wrap;}
+  .trust{display:flex;align-items:center;gap:1.3rem;margin-top:1.9rem;flex-wrap:wrap;}
+  .trust .stars{color:var(--orange-deep);font-size:1.15rem;letter-spacing:2px;}
+  .trust b{color:var(--ink);}
+  .trust small{color:var(--ink-soft);font-weight:700;display:block;font-size:.9rem;}
+  .avatars{display:flex;}
+  .avatars span{width:38px;height:38px;border-radius:50%;border:3px solid var(--bg);margin-left:-12px;display:grid;place-items:center;font-size:1.1rem;box-shadow:0 4px 10px -6px rgba(0,0,0,.4);}
+  .avatars span:first-child{margin-left:0;}
+
+  /* mascot */
+  .hero-art{position:relative;display:grid;place-items:center;min-height:360px;}
+  .blob{position:absolute;inset:0;margin:auto;width:86%;aspect-ratio:1;background:
+    radial-gradient(circle at 30% 30%, #bfe6ff, #7fc4f0 55%, #4aa8e6 100%);
+    border-radius:46% 54% 58% 42%/52% 44% 56% 48%;
+    filter:blur(.5px);animation:morph 12s ease-in-out infinite;}
+  @keyframes morph{
+    0%,100%{border-radius:46% 54% 58% 42%/52% 44% 56% 48%;transform:rotate(0deg) scale(1);}
+    50%{border-radius:58% 42% 45% 55%/48% 58% 42% 52%;transform:rotate(6deg) scale(1.03);}
+  }
+  .mascot{position:relative;width:min(420px,80%);z-index:2;filter:drop-shadow(0 24px 30px rgba(11,78,128,.35));}
+  .bob{animation:bob 4.5s ease-in-out infinite;}
+  @keyframes bob{0%,100%{transform:translateY(0);}50%{transform:translateY(-14px);}}
+
+  /* floating bubbles */
+  .bubbles{position:absolute;inset:0;pointer-events:none;z-index:1;}
+  .bubble{position:absolute;bottom:-40px;border-radius:50%;
+    background:radial-gradient(circle at 32% 28%, rgba(255,255,255,.95), rgba(180,225,255,.5) 60%, rgba(120,190,235,.25));
+    border:1.5px solid rgba(255,255,255,.6);
+    animation:rise linear infinite;opacity:0;}
+  @keyframes rise{
+    0%{transform:translateY(0) scale(.6);opacity:0;}
+    12%{opacity:.9;}
+    100%{transform:translateY(-460px) scale(1.1);opacity:0;}
+  }
+
+  /* wave divider */
+  .wave{position:absolute;left:0;right:0;bottom:-1px;line-height:0;}
+  .wave svg{width:100%;height:auto;display:block;}
+
+  /* ---------- section heading ---------- */
+  .sec{padding:clamp(3.5rem,8vw,6rem) 0;}
+  .sec-head{text-align:center;max-width:640px;margin:0 auto 3rem;}
+  .kicker{display:inline-block;background:var(--orange-soft);color:var(--orange-deep);font-weight:800;
+    padding:.35em 1em;border-radius:100px;font-size:.95rem;margin-bottom:.9rem;transform:rotate(-1.5deg);}
+  .sec-head h2{font-size:clamp(2rem,4.5vw,3rem);color:var(--ink);}
+  .sec-head p{color:var(--ink-soft);font-weight:600;font-size:1.12rem;margin-top:.6rem;}
+
+  /* ---------- services ---------- */
+  #servicos{background:var(--foam);}
+  .svc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.4rem;}
+  .svc{background:#fff;border-radius:var(--r-lg);padding:1.8rem 1.6rem;position:relative;overflow:hidden;
+    border:2px solid transparent;transition:transform .2s, box-shadow .2s, border-color .2s;
+    box-shadow:0 20px 40px -30px rgba(14,107,176,.5);}
+  .svc:hover{transform:translateY(-8px);border-color:var(--blue);box-shadow:0 26px 46px -24px rgba(14,107,176,.55);}
+  .svc .ico{width:64px;height:64px;border-radius:20px;display:grid;place-items:center;font-size:2rem;margin-bottom:1rem;}
+  .svc h3{font-size:1.4rem;color:var(--ink);margin-bottom:.35rem;}
+  .svc p{color:var(--ink-soft);font-weight:600;font-size:.98rem;margin:0 0 1.1rem;}
+  .svc .price{font-family:'Baloo 2';font-weight:700;color:var(--blue-deep);font-size:1.15rem;}
+  .svc .price small{color:var(--ink-soft);font-weight:700;font-size:.8rem;font-family:'Nunito';}
+  .svc.pop{background:linear-gradient(160deg,#fff,#FFF4E7);border-color:var(--orange);}
+  .tag-pop{position:absolute;top:16px;right:-34px;background:var(--orange);color:#fff;font-weight:800;
+    font-size:.78rem;padding:.3em 3em;transform:rotate(38deg);box-shadow:0 6px 12px -6px rgba(242,126,39,.7);}
+
+  /* ---------- steps ---------- */
+  .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:1.2rem;counter-reset:step;}
+  .step{background:#fff;border-radius:var(--r-md);padding:1.6rem 1.3rem;text-align:center;position:relative;
+    box-shadow:0 18px 36px -30px rgba(14,107,176,.5);}
+  .step .num{width:52px;height:52px;margin:0 auto .8rem;border-radius:50%;background:var(--blue);color:#fff;
+    font-family:'Baloo 2';font-weight:800;font-size:1.5rem;display:grid;place-items:center;
+    box-shadow:0 10px 20px -10px rgba(14,107,176,.8);}
+  .step:nth-child(2) .num{background:var(--orange);box-shadow:0 10px 20px -10px rgba(242,126,39,.8);}
+  .step:nth-child(3) .num{background:var(--mint);color:#0a5c50;}
+  .step:nth-child(4) .num{background:var(--pink);color:#8a2447;}
+  .step h3{font-size:1.2rem;margin-bottom:.3rem;}
+  .step p{color:var(--ink-soft);font-weight:600;font-size:.94rem;margin:0;}
+  .step-emoji{font-size:1.6rem;margin-top:.6rem;}
+
+  /* ---------- booking ---------- */
+  #agendar{background:linear-gradient(180deg,var(--blue) 0%,var(--blue-deep) 100%);color:#fff;}
+  #agendar .sec-head h2{color:#fff;}
+  #agendar .kicker{background:rgba(255,255,255,.2);color:#fff;}
+  #agendar .sec-head p{color:#dbeeff;}
+  .booking{display:grid;grid-template-columns:1.4fr .9fr;gap:1.6rem;align-items:start;}
+  .book-card{background:#fff;color:var(--ink);border-radius:var(--r-lg);padding:1.8rem;box-shadow:0 40px 70px -40px rgba(0,0,0,.5);}
+  .progress{display:flex;gap:.5rem;margin-bottom:1.6rem;}
+  .progress .dot{flex:1;height:8px;border-radius:100px;background:#e3eef6;transition:background .3s;}
+  .progress .dot.on{background:var(--orange);}
+  .progress .dot.done{background:var(--blue);}
+  .step-title{font-size:1.4rem;margin-bottom:.3rem;}
+  .step-sub{color:var(--ink-soft);font-weight:600;margin:0 0 1.3rem;font-size:.98rem;}
+  .pane{display:none;animation:pop .35s ease;}
+  .pane.active{display:block;}
+  @keyframes pop{from{opacity:0;transform:translateY(10px) scale(.98);}to{opacity:1;transform:none;}}
+  .opts{display:grid;gap:.7rem;}
+  .opts.two{grid-template-columns:1fr 1fr;}
+  .opts.three{grid-template-columns:repeat(3,1fr);}
+  .opt{border:2.5px solid #e3eef6;background:#fbfdff;border-radius:var(--r-sm);padding:1rem;
+    display:flex;align-items:center;gap:.7rem;font-weight:700;transition:all .18s;text-align:left;color:var(--ink);}
+  .opt .oico{font-size:1.5rem;}
+  .opt .oinfo{display:flex;flex-direction:column;line-height:1.25;}
+  .opt .oinfo small{color:var(--ink-soft);font-weight:700;font-size:.82rem;}
+  .opt:hover{border-color:var(--blue);transform:translateY(-2px);}
+  .opt.sel{border-color:var(--orange);background:#FFF6EC;box-shadow:0 10px 22px -14px rgba(242,126,39,.6);}
+  .opt.col{flex-direction:column;text-align:center;gap:.3rem;}
+  .field{margin-bottom:1rem;}
+  .field label{display:block;font-weight:800;margin-bottom:.4rem;font-size:.95rem;}
+  .field input{width:100%;padding:.85em 1em;border-radius:var(--r-sm);border:2.5px solid #e3eef6;
+    font-family:inherit;font-size:1rem;font-weight:600;background:#fbfdff;color:var(--ink);transition:border .2s;}
+  .field input:focus{outline:none;border-color:var(--blue);}
+  .row2{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+  .times{display:grid;grid-template-columns:repeat(4,1fr);gap:.6rem;}
+  .time{border:2.5px solid #e3eef6;background:#fbfdff;border-radius:12px;padding:.7em 0;font-weight:800;color:var(--ink);transition:all .16s;}
+  .time:hover{border-color:var(--blue);}
+  .time.sel{background:var(--blue);color:#fff;border-color:var(--blue);}
+  .book-nav{display:flex;justify-content:space-between;gap:1rem;margin-top:1.7rem;}
+  .link-back{background:none;color:var(--ink-soft);font-weight:800;padding:.85em .4em;display:inline-flex;align-items:center;gap:.3rem;}
+  .link-back:hover{color:var(--blue-deep);}
+  .link-back[hidden]{visibility:hidden;}
+
+  /* summary */
+  .summary{background:rgba(255,255,255,.14);border:1.5px solid rgba(255,255,255,.28);
+    border-radius:var(--r-lg);padding:1.6rem;position:sticky;top:90px;}
+  .summary h3{font-size:1.3rem;margin-bottom:1rem;display:flex;align-items:center;gap:.5rem;}
+  .sum-row{display:flex;justify-content:space-between;gap:1rem;padding:.7rem 0;border-bottom:1px dashed rgba(255,255,255,.3);font-weight:700;}
+  .sum-row span:first-child{color:#cbe6f8;}
+  .sum-row span:last-child{text-align:right;font-weight:800;}
+  .sum-row .empty{color:#a9d1ea;font-weight:600;font-style:italic;}
+  .sum-total{display:flex;justify-content:space-between;align-items:baseline;margin-top:1rem;padding-top:1rem;}
+  .sum-total .lbl{font-weight:800;font-size:1.05rem;}
+  .sum-total .val{font-family:'Baloo 2';font-weight:800;font-size:2rem;color:#fff;}
+  .sum-note{font-size:.82rem;color:#bfe0f4;margin-top:.4rem;font-weight:600;}
+
+  /* confirmation */
+  .confirm{text-align:center;padding:1rem .5rem;display:none;}
+  .confirm.show{display:block;animation:pop .4s ease;}
+  .confirm .big{font-size:3.4rem;margin-bottom:.4rem;animation:wiggle 1s ease;}
+  @keyframes wiggle{0%,100%{transform:rotate(0);}25%{transform:rotate(-12deg);}75%{transform:rotate(12deg);}}
+  .confirm h3{font-size:1.8rem;color:var(--blue-deep);margin-bottom:.4rem;}
+  .confirm p{color:var(--ink-soft);font-weight:600;}
+  .confirm .recap{background:#F6FBFF;border-radius:var(--r-md);padding:1.2rem;text-align:left;margin:1.3rem 0;font-weight:700;}
+  .confirm .recap div{display:flex;justify-content:space-between;padding:.3rem 0;}
+  .confirm .recap div span:first-child{color:var(--ink-soft);}
+
+  /* ---------- testimonials ---------- */
+  #depoimentos{background:var(--foam);overflow:hidden;}
+  .carousel{position:relative;}
+  .track-mask{overflow:hidden;border-radius:var(--r-lg);}
+  .track{display:flex;transition:transform .5s cubic-bezier(.4,0,.2,1);}
+  .quote{flex:0 0 100%;padding:1rem;}
+  .quote-card{background:#fff;border-radius:var(--r-lg);padding:2.2rem;max-width:760px;margin:0 auto;
+    box-shadow:0 30px 60px -40px rgba(14,107,176,.6);position:relative;text-align:center;}
+  .quote-card .mark{font-family:'Baloo 2';font-size:4rem;color:var(--orange-soft);line-height:.6;height:.5em;}
+  .quote-card p{font-size:1.28rem;font-weight:700;color:var(--ink);margin:.4rem 0 1.4rem;line-height:1.5;}
+  .who{display:flex;align-items:center;justify-content:center;gap:.9rem;}
+  .who .pic{width:58px;height:58px;border-radius:50%;display:grid;place-items:center;font-size:1.9rem;box-shadow:0 8px 16px -8px rgba(0,0,0,.35);}
+  .who b{display:block;color:var(--ink);font-size:1.05rem;font-family:'Baloo 2';}
+  .who small{color:var(--ink-soft);font-weight:700;}
+  .who .stars{color:var(--orange-deep);letter-spacing:1px;font-size:.9rem;}
+  .car-btns{display:flex;justify-content:center;align-items:center;gap:1rem;margin-top:1.6rem;}
+  .arrow{width:48px;height:48px;border-radius:50%;background:#fff;color:var(--blue-deep);font-size:1.3rem;font-weight:800;
+    display:grid;place-items:center;box-shadow:0 12px 24px -14px rgba(14,107,176,.6);transition:transform .18s;}
+  .arrow:hover{transform:scale(1.1);background:var(--blue);color:#fff;}
+  .dots{display:flex;gap:.5rem;}
+  .cdot{width:11px;height:11px;border-radius:50%;background:#cfe4f2;transition:all .25s;}
+  .cdot.on{background:var(--orange);width:30px;border-radius:100px;}
+
+  /* ---------- cta band ---------- */
+  .band{background:linear-gradient(120deg,var(--orange) 0%,var(--orange-deep) 100%);color:#fff;text-align:center;
+    border-radius:var(--r-lg);padding:clamp(2.4rem,5vw,3.6rem);margin:clamp(3rem,6vw,4rem) 0;position:relative;overflow:hidden;}
+  .band h2{font-size:clamp(1.8rem,4vw,2.7rem);margin-bottom:.6rem;}
+  .band p{font-weight:700;font-size:1.1rem;opacity:.95;margin:0 0 1.5rem;}
+  .band .paw{position:absolute;opacity:.16;font-size:5rem;}
+
+  /* ---------- footer ---------- */
+  footer{background:var(--blue-dark);color:#cfe6f5;padding:3.5rem 0 2rem;}
+  .foot-grid{display:grid;grid-template-columns:1.6fr 1fr 1fr;gap:2rem;}
+  footer .brand{color:#fff;margin-bottom:.6rem;}
+  footer .brand b{color:var(--orange);}
+  footer p{font-weight:600;max-width:34ch;}
+  footer h4{font-family:'Baloo 2';color:#fff;font-size:1.15rem;margin:0 0 .8rem;}
+  footer ul{list-style:none;padding:0;margin:0;display:grid;gap:.5rem;font-weight:700;}
+  footer a:hover{color:var(--orange-soft);}
+  .socials{display:flex;gap:.6rem;margin-top:1rem;}
+  .socials a{width:42px;height:42px;border-radius:14px;background:rgba(255,255,255,.12);display:grid;place-items:center;font-size:1.2rem;transition:background .2s,transform .2s;}
+  .socials a:hover{background:var(--orange);transform:translateY(-3px);}
+  .foot-bottom{border-top:1px solid rgba(255,255,255,.15);margin-top:2.5rem;padding-top:1.4rem;text-align:center;font-weight:600;font-size:.9rem;color:#9fc6df;}
+
+  /* toast */
+  .toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(120px);
+    background:var(--ink);color:#fff;padding:.9em 1.4em;border-radius:100px;font-weight:800;
+    box-shadow:0 20px 40px -16px rgba(0,0,0,.5);z-index:120;transition:transform .4s cubic-bezier(.2,1.2,.4,1);display:flex;gap:.5rem;align-items:center;}
+  .toast.show{transform:translateX(-50%) translateY(0);}
+
+  /* ---------- responsive ---------- */
+  @media(max-width:920px){
+    .hero-grid{grid-template-columns:1fr;text-align:center;}
+    .hero p.lead{margin-left:auto;margin-right:auto;}
+    .hero-cta,.trust{justify-content:center;}
+    .hero-art{order:-1;min-height:300px;}
+    .booking{grid-template-columns:1fr;}
+    .summary{position:static;}
+    .svc-grid{grid-template-columns:1fr 1fr;}
+    .steps{grid-template-columns:1fr 1fr;}
+  }
+  @media(max-width:640px){
+    .nav-links{display:none;position:absolute;top:100%;left:0;right:0;background:var(--foam);
+      flex-direction:column;gap:0;padding:.5rem 6vw 1.2rem;box-shadow:0 20px 30px -20px rgba(0,0,0,.3);border-bottom:2px solid rgba(30,143,213,.12);}
+    .nav-links.open{display:flex;}
+    .nav-links a{padding:.8rem 0;border-bottom:1px solid rgba(30,143,213,.12);width:100%;}
+    .nav-cta .btn{display:none;}
+    .burger{display:flex;}
+    .svc-grid{grid-template-columns:1fr;}
+    .steps{grid-template-columns:1fr;}
+    .opts.three{grid-template-columns:1fr;}
+    .times{grid-template-columns:repeat(3,1fr);}
+    .row2{grid-template-columns:1fr;}
+    .foot-grid{grid-template-columns:1fr;}
+    .quote-card{padding:1.6rem;}
+    .quote-card p{font-size:1.1rem;}
+  }
+
+  @media(prefers-reduced-motion:reduce){
+    *{animation:none!important;scroll-behavior:auto;transition:none!important;}
+    .bubble{display:none;}
+  }
+</style>
+</head>
+<body>
+
+<!-- ===================== NAV ===================== -->
+<header class="nav">
+  <div class="wrap nav-inner">
+    <a href="#top" class="brand" aria-label="Dazumbanho — início">
+      <svg class="logo-mark" viewBox="0 0 48 48" aria-hidden="true">
+        <circle cx="24" cy="24" r="22" fill="#1E8FD5"/>
+        <ellipse cx="24" cy="30" rx="11" ry="9.5" fill="#FFF6EC"/>
+        <circle cx="18.5" cy="20" r="4.2" fill="#FF9A47"/>
+        <circle cx="29.5" cy="20" r="4.2" fill="#FF9A47"/>
+        <circle cx="16" cy="27" r="3.4" fill="#fff"/>
+        <circle cx="32" cy="27" r="3.4" fill="#fff"/>
+        <circle cx="24" cy="30" r="4" fill="#fff"/>
+        <circle cx="24" cy="28.5" r="1.9" fill="#103A5C"/>
+      </svg>
+      Dazum<b>banho</b>
+    </a>
+    <nav class="nav-links" id="navLinks">
+      <a href="#servicos">Serviços</a>
+      <a href="#como">Como funciona</a>
+      <a href="#agendar">Agendar</a>
+      <a href="#depoimentos">Depoimentos</a>
+    </nav>
+    <div class="nav-cta">
+      <a href="#agendar" class="btn btn-primary">Agendar banho 🛁</a>
+      <button class="burger" id="burger" aria-label="Abrir menu"><span></span></button>
+    </div>
+  </div>
+</header>
+
+<!-- ===================== HERO ===================== -->
+<section class="hero" id="top">
+  <div class="wrap hero-grid">
+    <div class="hero-copy">
+      <span class="eyebrow">🐾 Banho & tosa no capricho, em Dazumbanho</span>
+      <h1>Seu pet merece um <span class="splash">banho de respeito</span></h1>
+      <p class="lead">Espuminha macia, cheirinho que dura e muito carinho. Sai daqui limpinho, feliz e balançando o rabo.</p>
+      <div class="hero-cta">
+        <a href="#agendar" class="btn btn-primary">Agendar agora 🐶</a>
+        <a href="#servicos" class="btn btn-ghost">Ver serviços</a>
+      </div>
+      <div class="trust">
+        <div>
+          <div class="stars" aria-hidden="true">★★★★★</div>
+          <small><b>4,9</b> de 5 · avaliação dos tutores</small>
+        </div>
+        <div style="display:flex;align-items:center;gap:.7rem;">
+          <div class="avatars" aria-hidden="true">
+            <span style="background:#FFD9B0">🐕</span>
+            <span style="background:#8FE0D3">🐈</span>
+            <span style="background:#FFB4C6">🐩</span>
+            <span style="background:#bfe6ff">🐕‍🦺</span>
+          </div>
+          <small><b>+2.000</b> pets<br>cheirosinhos</small>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-art">
+      <div class="blob" aria-hidden="true"></div>
+      <div class="bubbles" id="bubbles" aria-hidden="true"></div>
+      <!-- Mascote: cachorrinho na banheira -->
+      <svg class="mascot bob" viewBox="0 0 340 320" role="img" aria-label="Cachorrinho feliz tomando banho na banheira com espuma">
+        <!-- water drops -->
+        <circle cx="40" cy="60" r="6" fill="#8FE0D3" opacity=".7"/>
+        <circle cx="300" cy="90" r="8" fill="#FFB4C6" opacity=".7"/>
+        <circle cx="290" cy="40" r="5" fill="#FF9A47" opacity=".7"/>
+        <!-- foam behind head -->
+        <g fill="#ffffff">
+          <circle cx="120" cy="150" r="26"/><circle cx="150" cy="132" r="30"/>
+          <circle cx="188" cy="132" r="30"/><circle cx="220" cy="150" r="26"/>
+          <circle cx="170" cy="120" r="30"/>
+        </g>
+        <!-- ears -->
+        <ellipse cx="118" cy="150" rx="20" ry="34" fill="#C8792E" transform="rotate(-16 118 150)"/>
+        <ellipse cx="222" cy="150" rx="20" ry="34" fill="#C8792E" transform="rotate(16 222 150)"/>
+        <!-- head -->
+        <circle cx="170" cy="168" r="58" fill="#E9A55A"/>
+        <!-- foam hat -->
+        <g fill="#ffffff">
+          <circle cx="150" cy="118" r="17"/><circle cx="172" cy="106" r="20"/>
+          <circle cx="195" cy="118" r="17"/><circle cx="172" cy="124" r="18"/>
+        </g>
+        <!-- snout -->
+        <ellipse cx="170" cy="192" rx="30" ry="24" fill="#FBEAD3"/>
+        <!-- eyes -->
+        <circle cx="152" cy="166" r="8" fill="#103A5C"/>
+        <circle cx="188" cy="166" r="8" fill="#103A5C"/>
+        <circle cx="154.5" cy="163.5" r="2.6" fill="#fff"/>
+        <circle cx="190.5" cy="163.5" r="2.6" fill="#fff"/>
+        <!-- blush -->
+        <circle cx="138" cy="182" r="7" fill="#FFB4C6" opacity=".7"/>
+        <circle cx="202" cy="182" r="7" fill="#FFB4C6" opacity=".7"/>
+        <!-- nose + smile -->
+        <ellipse cx="170" cy="184" rx="7" ry="5" fill="#103A5C"/>
+        <path d="M170 189 Q170 200 160 202 M170 189 Q170 200 180 202" stroke="#103A5C" stroke-width="3" fill="none" stroke-linecap="round"/>
+        <!-- tub -->
+        <path d="M70 232 h200 a10 10 0 0 1 10 10 v6 a44 44 0 0 1 -44 44 h-132 a44 44 0 0 1 -44 -44 v-6 a10 10 0 0 1 10 -10 z" fill="#1E8FD5"/>
+        <rect x="70" y="232" width="200" height="12" rx="6" fill="#0E6BB0"/>
+        <!-- water line foam -->
+        <g fill="#ffffff" opacity=".95">
+          <circle cx="95" cy="244" r="12"/><circle cx="120" cy="240" r="14"/>
+          <circle cx="150" cy="244" r="12"/><circle cx="200" cy="240" r="14"/>
+          <circle cx="230" cy="244" r="12"/><circle cx="255" cy="243" r="11"/>
+        </g>
+        <!-- rubber duck -->
+        <g transform="translate(236 250)">
+          <ellipse cx="0" cy="8" rx="16" ry="11" fill="#FF9A47"/>
+          <circle cx="7" cy="-4" r="9" fill="#FF9A47"/>
+          <path d="M14 -4 l10 2 l-10 4 z" fill="#F27E27"/>
+          <circle cx="9" cy="-6" r="1.8" fill="#103A5C"/>
+        </g>
+        <!-- little paw -->
+        <ellipse cx="108" cy="252" rx="13" ry="10" fill="#E9A55A"/>
+      </svg>
+    </div>
+  </div>
+
+  <div class="wave" aria-hidden="true">
+    <svg viewBox="0 0 1440 90" preserveAspectRatio="none">
+      <path d="M0,50 C240,90 480,10 720,40 C960,70 1200,20 1440,50 L1440,90 L0,90 Z" fill="#F6FBFF"/>
+    </svg>
+  </div>
+</section>
+
+<!-- ===================== SERVIÇOS ===================== -->
+<section class="sec" id="servicos">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="kicker">Nossos mimos</span>
+      <h2>Do rápido ao spa completo</h2>
+      <p>Cada patinha tem sua necessidade. Escolha o carinho ideal para o seu melhor amigo.</p>
+    </div>
+    <div class="svc-grid">
+      <article class="svc">
+        <div class="ico" style="background:#E5F3FF">🛁</div>
+        <h3>Banho Relax</h3>
+        <p>Shampoo neutro, secagem completa e aquele perfuminho de pet limpinho.</p>
+        <div class="price">R$ 45 <small>/ a partir de</small></div>
+      </article>
+      <article class="svc pop">
+        <span class="tag-pop">Queridinho</span>
+        <div class="ico" style="background:#FFE7CC">✂️</div>
+        <h3>Banho + Tosa</h3>
+        <p>Banho caprichado com tosa na tesoura ou máquina, do jeitinho que o pet fica lindo.</p>
+        <div class="price">R$ 80 <small>/ a partir de</small></div>
+      </article>
+      <article class="svc">
+        <div class="ico" style="background:#DFF6F1">🐾</div>
+        <h3>Tosa Higiênica</h3>
+        <p>Patinhas, barriga e região íntima aparadas pra mais conforto e higiene.</p>
+        <div class="price">R$ 40 <small>/ a partir de</small></div>
+      </article>
+      <article class="svc">
+        <div class="ico" style="background:#FFEAF0">💧</div>
+        <h3>Hidratação Premium</h3>
+        <p>Máscara nutritiva que deixa os pelos macios, brilhantes e soltinhos.</p>
+        <div class="price">R$ 60 <small>/ a partir de</small></div>
+      </article>
+      <article class="svc">
+        <div class="ico" style="background:#E5F3FF">💅</div>
+        <h3>Corte de Unhas</h3>
+        <p>Rapidinho e sem estresse, com todo cuidado nas patinhas mais agitadas.</p>
+        <div class="price">R$ 20 <small>/ a partir de</small></div>
+      </article>
+      <article class="svc">
+        <div class="ico" style="background:#FFE7CC">✨</div>
+        <h3>Spa Day Completo</h3>
+        <p>Banho, tosa, hidratação e perfumaria. O dia mais gostoso da semana do seu pet.</p>
+        <div class="price">R$ 120 <small>/ a partir de</small></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== COMO FUNCIONA ===================== -->
+<section class="sec" id="como">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="kicker">Simples assim</span>
+      <h2>Do agendamento ao rabinho abanando</h2>
+      <p>Quatro passinhos e pronto — a gente cuida de todo o resto.</p>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <div class="num">1</div>
+        <h3>Escolha o mimo</h3>
+        <p>Selecione o serviço perfeito pro seu companheiro.</p>
+        <div class="step-emoji">🧴</div>
+      </div>
+      <div class="step">
+        <div class="num">2</div>
+        <h3>Marque o horário</h3>
+        <p>Dia e hora que cabem na sua rotina, em segundos.</p>
+        <div class="step-emoji">📅</div>
+      </div>
+      <div class="step">
+        <div class="num">3</div>
+        <h3>Traga o pet</h3>
+        <p>Recebemos com festa, petisco e muito carinho.</p>
+        <div class="step-emoji">🐕</div>
+      </div>
+      <div class="step">
+        <div class="num">4</div>
+        <h3>Busque cheiroso</h3>
+        <p>Avisamos quando estiver pronto, lindo e feliz.</p>
+        <div class="step-emoji">💙</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== AGENDAMENTO ===================== -->
+<section class="sec" id="agendar">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="kicker">Agendamento online</span>
+      <h2>Marque o banho em 1 minutinho</h2>
+      <p>Monte o pacote do seu pet e veja o valor na hora. Sem ligação, sem espera.</p>
+    </div>
+
+    <div class="booking">
+      <!-- form card -->
+      <div class="book-card">
+        <div class="progress" id="progress">
+          <div class="dot on"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div>
+        </div>
+
+        <form id="bookForm" novalidate>
+          <!-- STEP 1: pet -->
+          <div class="pane active" data-pane="0">
+            <h3 class="step-title">Quem vai ser mimado? 🐾</h3>
+            <p class="step-sub">Conta pra gente sobre o seu pet.</p>
+            <div class="opts two" data-group="pet">
+              <button type="button" class="opt col" data-val="Cachorro" data-ico="🐶"><span class="oico">🐶</span>Cachorro</button>
+              <button type="button" class="opt col" data-val="Gato" data-ico="🐱"><span class="oico">🐱</span>Gato</button>
+            </div>
+            <p class="step-sub" style="margin:1.2rem 0 .6rem">Qual o porte?</p>
+            <div class="opts three" data-group="porte">
+              <button type="button" class="opt col" data-val="Pequeno" data-add="0"><span class="oico">🐾</span>Pequeno<small>até 10kg</small></button>
+              <button type="button" class="opt col" data-val="Médio" data-add="15"><span class="oico">🐾🐾</span>Médio<small>10–25kg</small></button>
+              <button type="button" class="opt col" data-val="Grande" data-add="30"><span class="oico">🐾🐾🐾</span>Grande<small>+25kg</small></button>
+            </div>
+          </div>
+
+          <!-- STEP 2: service -->
+          <div class="pane" data-pane="1">
+            <h3 class="step-title">Escolha o serviço 🧼</h3>
+            <p class="step-sub">Pode ser um só ou o pacote completo.</p>
+            <div class="opts" data-group="servico">
+              <button type="button" class="opt" data-val="Banho Relax" data-price="45"><span class="oico">🛁</span><span class="oinfo">Banho Relax<small>Shampoo + secagem</small></span><span style="margin-left:auto;font-weight:800;color:var(--blue-deep)">R$ 45</span></button>
+              <button type="button" class="opt" data-val="Banho + Tosa" data-price="80"><span class="oico">✂️</span><span class="oinfo">Banho + Tosa<small>O queridinho da casa</small></span><span style="margin-left:auto;font-weight:800;color:var(--blue-deep)">R$ 80</span></button>
+              <button type="button" class="opt" data-val="Tosa Higiênica" data-price="40"><span class="oico">🐾</span><span class="oinfo">Tosa Higiênica<small>Conforto e limpeza</small></span><span style="margin-left:auto;font-weight:800;color:var(--blue-deep)">R$ 40</span></button>
+              <button type="button" class="opt" data-val="Spa Day Completo" data-price="120"><span class="oico">✨</span><span class="oinfo">Spa Day Completo<small>Tudo + hidratação</small></span><span style="margin-left:auto;font-weight:800;color:var(--blue-deep)">R$ 120</span></button>
+            </div>
+          </div>
+
+          <!-- STEP 3: date/time -->
+          <div class="pane" data-pane="2">
+            <h3 class="step-title">Que dia fica bom? 📅</h3>
+            <p class="step-sub">Escolha a data e o horário preferido.</p>
+            <div class="field">
+              <label for="data">Data</label>
+              <input type="date" id="data" name="data" />
+            </div>
+            <p class="step-sub" style="margin-bottom:.6rem">Horário</p>
+            <div class="times" data-group="hora">
+              <button type="button" class="time" data-val="09:00">09:00</button>
+              <button type="button" class="time" data-val="10:00">10:00</button>
+              <button type="button" class="time" data-val="11:00">11:00</button>
+              <button type="button" class="time" data-val="13:00">13:00</button>
+              <button type="button" class="time" data-val="14:00">14:00</button>
+              <button type="button" class="time" data-val="15:00">15:00</button>
+              <button type="button" class="time" data-val="16:00">16:00</button>
+              <button type="button" class="time" data-val="17:00">17:00</button>
+            </div>
+          </div>
+
+          <!-- STEP 4: contact -->
+          <div class="pane" data-pane="3">
+            <h3 class="step-title">Quase lá! 💙</h3>
+            <p class="step-sub">Deixe seus dados para confirmarmos o agendamento.</p>
+            <div class="field">
+              <label for="tutor">Seu nome</label>
+              <input type="text" id="tutor" name="tutor" placeholder="Ex: Ana Souza" />
+            </div>
+            <div class="field">
+              <label for="petnome">Nome do pet</label>
+              <input type="text" id="petnome" name="petnome" placeholder="Ex: Mel" />
+            </div>
+            <div class="field">
+              <label for="fone">WhatsApp</label>
+              <input type="tel" id="fone" name="fone" placeholder="(00) 90000-0000" inputmode="tel" />
+            </div>
+          </div>
+
+          <!-- confirmation -->
+          <div class="confirm" id="confirm">
+            <div class="big">🎉</div>
+            <h3>Agendamento confirmado!</h3>
+            <p id="confirmMsg">Enviamos os detalhes no seu WhatsApp. Até já! 🐾</p>
+            <div class="recap" id="recap"></div>
+            <button type="button" class="btn btn-blue" id="resetBtn" style="margin:0 auto;">Fazer outro agendamento</button>
+          </div>
+
+          <div class="book-nav" id="bookNav">
+            <button type="button" class="link-back" id="backBtn" hidden>← Voltar</button>
+            <button type="button" class="btn btn-primary" id="nextBtn" style="margin-left:auto;">Continuar</button>
+          </div>
+        </form>
+      </div>
+
+      <!-- summary -->
+      <aside class="summary" aria-label="Resumo do agendamento">
+        <h3>🧾 Resumo</h3>
+        <div class="sum-row"><span>Pet</span><span id="sPet" class="empty">—</span></div>
+        <div class="sum-row"><span>Porte</span><span id="sPorte" class="empty">—</span></div>
+        <div class="sum-row"><span>Serviço</span><span id="sServico" class="empty">—</span></div>
+        <div class="sum-row"><span>Quando</span><span id="sQuando" class="empty">—</span></div>
+        <div class="sum-total">
+          <span class="lbl">Total estimado</span>
+          <span class="val" id="sTotal">R$ 0</span>
+        </div>
+        <p class="sum-note">Valor final pode variar conforme pelagem e condição do pet. Sem surpresas — a gente confirma antes. 💙</p>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== DEPOIMENTOS ===================== -->
+<section class="sec" id="depoimentos">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="kicker">Quem já experimentou</span>
+      <h2>Tutores (e pets) apaixonados</h2>
+      <p>Histórias de rabinhos abanando e tutores tranquilos.</p>
+    </div>
+
+    <div class="carousel">
+      <div class="track-mask">
+        <div class="track" id="track">
+          <div class="quote">
+            <div class="quote-card">
+              <div class="mark">“</div>
+              <p>A Mel sai daqui cheirosa por uma semana inteira! O pessoal trata ela como se fosse da família. Virei cliente pra vida toda.</p>
+              <div class="who">
+                <div class="pic" style="background:#FFD9B0">🐩</div>
+                <div style="text-align:left">
+                  <b>Juliana &amp; Mel</b>
+                  <small>Poodle · Vila Nova</small>
+                  <div class="stars">★★★★★</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="quote">
+            <div class="quote-card">
+              <div class="mark">“</div>
+              <p>Meu gato odeia banho, mas aqui ele fica calminho. Profissionais com paciência de santo e um capricho absurdo na tosa.</p>
+              <div class="who">
+                <div class="pic" style="background:#8FE0D3">🐈</div>
+                <div style="text-align:left">
+                  <b>Rafael &amp; Tom</b>
+                  <small>Gato · Centro</small>
+                  <div class="stars">★★★★★</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="quote">
+            <div class="quote-card">
+              <div class="mark">“</div>
+              <p>Agendei pelo site em um minuto e recebi tudo no WhatsApp. O Thor voltou lindo, macio e dormiu a tarde toda de tão relaxado.</p>
+              <div class="who">
+                <div class="pic" style="background:#bfe6ff">🐕‍🦺</div>
+                <div style="text-align:left">
+                  <b>Camila &amp; Thor</b>
+                  <small>Golden · Jardins</small>
+                  <div class="stars">★★★★★</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="quote">
+            <div class="quote-card">
+              <div class="mark">“</div>
+              <p>Preço justo e um cuidado que não tem preço. A Bela tem medo de tudo e saiu de lá abanando o rabo. Recomendo de olhos fechados!</p>
+              <div class="who">
+                <div class="pic" style="background:#FFB4C6">🐕</div>
+                <div style="text-align:left">
+                  <b>Pedro &amp; Bela</b>
+                  <small>Vira-lata caramelo · Bairro Alto</small>
+                  <div class="stars">★★★★★</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="car-btns">
+        <button class="arrow" id="prev" aria-label="Depoimento anterior">‹</button>
+        <div class="dots" id="dots" role="tablist"></div>
+        <button class="arrow" id="next" aria-label="Próximo depoimento">›</button>
+      </div>
+    </div>
+
+    <div class="band">
+      <span class="paw" style="top:10px;left:20px;">🐾</span>
+      <span class="paw" style="bottom:0;right:30px;transform:rotate(20deg);">🐾</span>
+      <h2>Bora deixar seu pet cheirosinho?</h2>
+      <p>O próximo rabinho feliz pode ser o do seu melhor amigo.</p>
+      <a href="#agendar" class="btn btn-ghost">Agendar banho agora 🛁</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== FOOTER ===================== -->
+<footer>
+  <div class="wrap foot-grid">
+    <div>
+      <div class="brand">Dazum<b>banho</b></div>
+      <p>Banho e tosa feito com carinho de verdade. Aqui todo pet é tratado como estrela.</p>
+      <div class="socials">
+        <a href="#" aria-label="Instagram">📸</a>
+        <a href="#" aria-label="WhatsApp">💬</a>
+        <a href="#" aria-label="Facebook">👍</a>
+      </div>
+    </div>
+    <div>
+      <h4>Serviços</h4>
+      <ul>
+        <li><a href="#servicos">Banho Relax</a></li>
+        <li><a href="#servicos">Banho + Tosa</a></li>
+        <li><a href="#servicos">Hidratação</a></li>
+        <li><a href="#servicos">Spa Day</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Fica pertinho</h4>
+      <ul>
+        <li>📍 Rua dos Pets, 123</li>
+        <li>🕗 Seg a Sáb · 8h às 18h</li>
+        <li>📞 (00) 90000-0000</li>
+        <li><a href="#agendar">Agendar online →</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="wrap foot-bottom">
+    Feito com 💙 e muita espuma · Dazumbanho © 2026
+  </div>
+</footer>
+
+<div class="toast" id="toast"><span>⚠️</span><span id="toastMsg">Preencha para continuar</span></div>
+
+<script>
+(function(){
+  "use strict";
+
+  /* ---------- menu mobile ---------- */
+  const burger = document.getElementById('burger');
+  const navLinks = document.getElementById('navLinks');
+  burger.addEventListener('click', ()=> navLinks.classList.toggle('open'));
+  navLinks.querySelectorAll('a').forEach(a=> a.addEventListener('click', ()=> navLinks.classList.remove('open')));
+
+  /* ---------- bolhas do hero ---------- */
+  const bubbleBox = document.getElementById('bubbles');
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(bubbleBox && !reduce){
+    for(let i=0;i<16;i++){
+      const b=document.createElement('span');
+      b.className='bubble';
+      const size=8+Math.random()*34;
+      b.style.width=size+'px'; b.style.height=size+'px';
+      b.style.left=Math.random()*100+'%';
+      b.style.animationDuration=(5+Math.random()*6)+'s';
+      b.style.animationDelay=(Math.random()*6)+'s';
+      bubbleBox.appendChild(b);
+    }
+  }
+
+  /* ---------- toast ---------- */
+  const toast=document.getElementById('toast'), toastMsg=document.getElementById('toastMsg');
+  let toastT;
+  function showToast(msg){
+    toastMsg.textContent=msg; toast.classList.add('show');
+    clearTimeout(toastT); toastT=setTimeout(()=>toast.classList.remove('show'),2600);
+  }
+
+  /* ---------- estado do agendamento ---------- */
+  const state={pet:null,petIco:'🐾',porte:null,porteAdd:0,servico:null,servicoPrice:0,data:null,hora:null,tutor:'',petnome:'',fone:''};
+  let step=0; const LAST=3;
+
+  const panes=[...document.querySelectorAll('.pane')];
+  const dots=[...document.querySelectorAll('#progress .dot')];
+  const nextBtn=document.getElementById('nextBtn');
+  const backBtn=document.getElementById('backBtn');
+  const bookNav=document.getElementById('bookNav');
+  const confirmEl=document.getElementById('confirm');
+
+  /* seleção de opções em grupo */
+  document.querySelectorAll('[data-group]').forEach(group=>{
+    group.addEventListener('click', e=>{
+      const opt=e.target.closest('.opt,.time'); if(!opt) return;
+      group.querySelectorAll('.opt,.time').forEach(o=>o.classList.remove('sel'));
+      opt.classList.add('sel');
+      const g=group.getAttribute('data-group');
+      if(g==='pet'){ state.pet=opt.dataset.val; state.petIco=opt.dataset.ico; }
+      if(g==='porte'){ state.porte=opt.dataset.val; state.porteAdd=+opt.dataset.add; }
+      if(g==='servico'){ state.servico=opt.dataset.val; state.servicoPrice=+opt.dataset.price; }
+      if(g==='hora'){ state.hora=opt.dataset.val; }
+      updateSummary();
+    });
+  });
+
+  document.getElementById('data').addEventListener('change', e=>{ state.data=e.target.value; updateSummary(); });
+  ['tutor','petnome','fone'].forEach(id=>{
+    document.getElementById(id).addEventListener('input', e=>{ state[id]=e.target.value; updateSummary(); });
+  });
+
+  /* datas: mínimo hoje */
+  const dataInput=document.getElementById('data');
+  const today=new Date(); today.setMinutes(today.getMinutes()-today.getTimezoneOffset());
+  dataInput.min=today.toISOString().split('T')[0];
+
+  function money(n){ return 'R$ '+n; }
+  function fmtDate(iso){
+    if(!iso) return null;
+    const [y,m,d]=iso.split('-');
+    return `${d}/${m}`;
+  }
+
+  function updateSummary(){
+    const set=(id,val)=>{const el=document.getElementById(id);
+      if(val){el.textContent=val;el.classList.remove('empty');}
+      else{el.textContent='—';el.classList.add('empty');}};
+    set('sPet', state.pet ? state.petIco+' '+state.pet : null);
+    set('sPorte', state.porte);
+    set('sServico', state.servico);
+    let quando=null;
+    if(state.data&&state.hora) quando=fmtDate(state.data)+' às '+state.hora;
+    else if(state.data) quando=fmtDate(state.data);
+    else if(state.hora) quando=state.hora;
+    set('sQuando', quando);
+    const total = state.servico ? state.servicoPrice+state.porteAdd : 0;
+    document.getElementById('sTotal').textContent=money(total);
+  }
+
+  /* validação por passo */
+  function validate(){
+    if(step===0){
+      if(!state.pet){ showToast('Escolha o tipo do pet 🐾'); return false; }
+      if(!state.porte){ showToast('Selecione o porte'); return false; }
+    }
+    if(step===1 && !state.servico){ showToast('Escolha um serviço 🧼'); return false; }
+    if(step===2){
+      if(!state.data){ showToast('Escolha uma data 📅'); return false; }
+      if(!state.hora){ showToast('Escolha um horário ⏰'); return false; }
+    }
+    if(step===3){
+      if(!state.tutor.trim()){ showToast('Digite seu nome'); return false; }
+      if(!state.fone.trim()||state.fone.replace(/\D/g,'').length<10){ showToast('Digite um WhatsApp válido'); return false; }
+    }
+    return true;
+  }
+
+  function render(){
+    panes.forEach((p,i)=>p.classList.toggle('active', i===step));
+    dots.forEach((d,i)=>{
+      d.classList.toggle('on', i===step);
+      d.classList.toggle('done', i<step);
+    });
+    backBtn.hidden = step===0;
+    nextBtn.textContent = step===LAST ? 'Confirmar agendamento 🎉' : 'Continuar';
+  }
+
+  nextBtn.addEventListener('click', ()=>{
+    if(!validate()) return;
+    if(step<LAST){ step++; render(); }
+    else finish();
+  });
+  backBtn.addEventListener('click', ()=>{ if(step>0){ step--; render(); } });
+
+  function finish(){
+    const total=state.servicoPrice+state.porteAdd;
+    panes.forEach(p=>p.classList.remove('active'));
+    bookNav.style.display='none';
+    document.getElementById('progress').style.display='none';
+    document.getElementById('confirmMsg').textContent =
+      `Oba! Já reservamos o horário${state.petnome?(' do '+state.petnome):''}. Enviamos os detalhes no seu WhatsApp. Até já! 🐾`;
+    document.getElementById('recap').innerHTML=`
+      <div><span>Pet</span><b>${state.petIco} ${state.pet} · ${state.porte}</b></div>
+      <div><span>Serviço</span><b>${state.servico}</b></div>
+      <div><span>Data</span><b>${fmtDate(state.data)} às ${state.hora}</b></div>
+      <div><span>Tutor(a)</span><b>${state.tutor}</b></div>
+      <div style="border-top:2px dashed #dde;margin-top:.4rem;padding-top:.5rem"><span>Total estimado</span><b style="color:var(--blue-deep)">${money(total)}</b></div>`;
+    confirmEl.classList.add('show');
+    showToast('Agendamento confirmado! 🎉');
+    confirmEl.scrollIntoView({behavior: reduce?'auto':'smooth', block:'center'});
+  }
+
+  document.getElementById('resetBtn').addEventListener('click', ()=>{
+    Object.assign(state,{pet:null,petIco:'🐾',porte:null,porteAdd:0,servico:null,servicoPrice:0,data:null,hora:null,tutor:'',petnome:'',fone:''});
+    document.querySelectorAll('.opt.sel,.time.sel').forEach(o=>o.classList.remove('sel'));
+    document.getElementById('bookForm').reset();
+    step=0; confirmEl.classList.remove('show');
+    bookNav.style.display=''; document.getElementById('progress').style.display='';
+    updateSummary(); render();
+    document.getElementById('agendar').scrollIntoView({behavior: reduce?'auto':'smooth', block:'start'});
+  });
+
+  render(); updateSummary();
+
+  /* ---------- carrossel de depoimentos ---------- */
+  const track=document.getElementById('track');
+  const slides=track.children.length;
+  const dotsBox=document.getElementById('dots');
+  let idx=0, auto;
+  for(let i=0;i<slides;i++){
+    const d=document.createElement('button');
+    d.className='cdot'+(i===0?' on':'');
+    d.setAttribute('aria-label','Ir para depoimento '+(i+1));
+    d.addEventListener('click',()=>{ go(i); resetAuto(); });
+    dotsBox.appendChild(d);
+  }
+  const cdots=[...dotsBox.children];
+  function go(i){
+    idx=(i+slides)%slides;
+    track.style.transform=`translateX(-${idx*100}%)`;
+    cdots.forEach((d,j)=>d.classList.toggle('on',j===idx));
+  }
+  document.getElementById('next').addEventListener('click',()=>{ go(idx+1); resetAuto(); });
+  document.getElementById('prev').addEventListener('click',()=>{ go(idx-1); resetAuto(); });
+  function startAuto(){ if(reduce) return; auto=setInterval(()=>go(idx+1),5500); }
+  function resetAuto(){ clearInterval(auto); startAuto(); }
+  startAuto();
+
+})();
+</script>
+</body>
+</html>
+dazumbanho.html
+Displaying dazumbanho.html. 
